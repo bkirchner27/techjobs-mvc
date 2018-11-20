@@ -30,15 +30,14 @@ public class SearchController {
 
 
         model.addAttribute("columns", ListController.columnChoices);
-        if (searchType.equals("All")) {
-            model.addAttribute("jobs", JobData.findAll(searchTerm));
-
+        if (searchType.equals("all")) {
+            model.addAttribute("jobs", JobData.findByValue(searchTerm));
         }
         else {
             model.addAttribute("jobs", JobData.findByColumnAndValue(searchType, searchTerm));
         }
-
         return "search";
+
 
     }
 }
