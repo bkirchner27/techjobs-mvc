@@ -32,12 +32,23 @@
         </p>
 
         <input type="submit" value="Search" />
+
     </form>
 
     <hr />
 
     <!-- TODO #2 - Loop over jobs map to display all job fields -->
-
+    <p th:unless="${jobs} and ${jobs.size()}">No Results</p>
+    <table class="job-listing" th:each="job : ${jobs}">
+        <tr th:unless="!${jobs} or !${jobs.size()}">
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        <tr th:each="field : ${job}">
+            <td th:text="${field.key}"></td>
+            <td th:text="${field.value}"></td>
+        </tr>
+    </table>
 </div>
 
 </body>
