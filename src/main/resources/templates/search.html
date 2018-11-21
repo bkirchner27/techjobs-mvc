@@ -12,8 +12,8 @@
 
     <form th:action="@{/search/results}">
         <h2>Search by:</h2>
-
         <p>
+            <span th:if="${searchField == null}">
             <span th:each="column : ${columns}">
                 <input
                         type="radio"
@@ -23,14 +23,24 @@
                         th:checked="${column.key == 'all'}"/>
                 <label th:for="${column.key}" th:text="${column.value}"></label>
             </span>
-
+            </span>
+            <span th:unless="${searchField == null}">
+            <span th:each="column : ${columns}">
+                <input
+                        type="radio"
+                        name="searchType"
+                        th:id="${column.key}"
+                        th:value="${column.key}"
+                        th:checked="${column.key} == ${searchField}"/>
+                <label th:for="${column.key}" th:text="${column.value}"></label>
+            </span>
+            </span>
         </p>
 
         <p>
             <label for="searchTerm">Keyword:</label>
-            <input type="text" name="searchTerm" id="searchTerm" />
+            <input type="text" name="searchTerm" id="searchTerm" th:value="${searchValue}"/>
         </p>
-
         <input type="submit" value="Search" />
 
     </form>
@@ -38,6 +48,7 @@
     <hr />
 
     <!-- TODO #2 - Loop over jobs map to display all job fields -->
+    <div th:fragment="results">
     <p th:unless="${jobs} and ${jobs.size()}">No Results</p>
     <table class="job-listing" th:each="job : ${jobs}">
         <tr th:unless="!${jobs} or !${jobs.size()}">
@@ -49,6 +60,7 @@
             <td th:text="${field.value}"></td>
         </tr>
     </table>
+    </div>
 </div>
 
 </body>
