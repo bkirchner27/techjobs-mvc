@@ -56,7 +56,7 @@
             <th>Value</th>
         </tr>
         <tr th:each="field : ${job}">
-            <td th:text="${field.key}"></td>
+            <td th:text="${#strings.capitalizeWords(field.key)}"></td>
             <td th:text="${field.value}"></td>
         </tr>
     </table>
