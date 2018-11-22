@@ -46,7 +46,6 @@
     </form>
 
     <hr />
-
     <!-- TODO #2 - Loop over jobs map to display all job fields -->
     <div th:fragment="results">
     <p th:unless="${jobs} and ${jobs.size()}">No Results</p>
@@ -57,7 +56,13 @@
         </tr>
         <tr th:each="field : ${job}">
             <td th:text="${#strings.capitalizeWords(field.key)}"></td>
+            <div th:if="${field.key == 'name'}">
             <td th:text="${field.value}"></td>
+            </div>
+            <div th:unless="${field.key == 'name'}">
+            <td> <a th:href="@{/list/jobs(column=${field.key},value=${field.value})}"><p th:text="${field.value}"></p></a></td>
+            </div>
+
         </tr>
     </table>
     </div>
